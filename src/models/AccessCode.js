@@ -36,4 +36,4 @@ const accessCodeSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model("AccessCode", accessCodeSchema);
+module.exports = mongoose.model("accesscodes", accessCodeSchema);
