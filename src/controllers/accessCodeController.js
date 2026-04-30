@@ -1,4 +1,16 @@
 const AccessCode = require("../models/AccessCode");
+const mongoose = require("mongoose");
+
+console.log("👉 Connected DB:", mongoose.connection.name);
+
+const collections = await mongoose.connection.db.listCollections().toArray();
+console.log(
+  "👉 Collections:",
+  collections.map((c) => c.name),
+);
+
+const count = await AccessCode.countDocuments();
+console.log("👉 AccessCode count:", count);
 
 function normalizeCode(rawCode = "") {
   return String(rawCode).trim().toUpperCase();
