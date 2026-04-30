@@ -1,14 +1,17 @@
 const AccessCode = require("../models/AccessCode");
 
 function normalizeCode(rawCode = "") {
-  return String(rawCode).trim().toUpperCase();
+  return String(rawCode)
+    .normalize("NFKC")
+    .trim()
+    .replace(/[\u2010-\u2015\u2212]/g, "-")
+    .replace(/\s+/g, "")
+    .toUpperCase();
 }
 
 exports.validateAccessCode = async (req, res) => {
   try {
-    console.log(req.body);
     const code = normalizeCode(req.body?.code);
-    console.log(code);
 
     if (!code) {
       return res.status(400).json({
@@ -34,13 +37,21 @@ exports.validateAccessCode = async (req, res) => {
       return res.status(200).json({
         ok: true,
         message: "Code validated. Access granted.",
-        redirectTo: "/landingPage.html",
+        redirectTo: "/landing",
       });
     }
 
     const existing = await AccessCode.findOne({ code }).lean();
-    console.log(existing);
     if (!existing) {
+      const totalCodes = await AccessCode.estimatedDocumentCount();
+      if (totalCodes === 0) {
+        return res.status(503).json({
+          ok: false,
+          message:
+            "Access codes are not configured on server yet. Please contact support.",
+        });
+      }
+
       return res.status(404).json({
         ok: false,
         message: "Invalid access code.",
