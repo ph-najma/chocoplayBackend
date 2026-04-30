@@ -7,7 +7,7 @@ function normalizeCode(rawCode = "") {
 exports.validateAccessCode = async (req, res) => {
   try {
     console.log(req.body);
-    const code = normalizeCode(req.body?.code);
+    // const code = normalizeCode(req.body?.code);
 
     if (!code) {
       return res.status(400).json({
