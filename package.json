@@ -1,0 +1,31 @@
+{
+  "name": "chocoplay",
+  "version": "1.0.0",
+  "description": "ChocoPlay full-stack MEAN flow with one-time chocolate access code validation",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "client:install": "npm install --prefix client",
+    "client:start": "npm run start --prefix client",
+    "client:build": "npm run build --prefix client",
+    "seed:codes": "node server/scripts/seedCodes.js",
+    "generate:codes": "node server/scripts/generateCodesAndQr.js",
+    "dev:full": "concurrently \"npm run dev\" \"npm run client:start\"",
+    "test": "echo \"No automated tests configured yet\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^8.23.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.14"
+  }
+}
