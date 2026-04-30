@@ -3,7 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const AccessCode = require("./src/models/AccessCode.js");
 
 const accessCodeRoutes = require("./src/routes/accessCodeRoutes.js");
 
@@ -41,12 +40,6 @@ app.use((req, res) => {
 async function start() {
   try {
     await mongoose.connect(MONGO_URI);
-    const totalCodes = await AccessCode.estimatedDocumentCount();
-    if (totalCodes === 0) {
-      console.warn(
-        "Warning: AccessCode collection is empty. Seed codes before accepting traffic.",
-      );
-    }
     app.listen(PORT, () => {
       console.log(`API running on http://localhost:${PORT}`);
     });
