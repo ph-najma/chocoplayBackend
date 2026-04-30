@@ -38,6 +38,7 @@ exports.validateAccessCode = async (req, res) => {
     }
 
     const existing = await AccessCode.findOne({ code }).lean();
+    console.log(existing);
     if (!existing) {
       return res.status(404).json({
         ok: false,
