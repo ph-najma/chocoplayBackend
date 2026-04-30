@@ -4,7 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
-const accessCodeRoutes = require("./src/routes/accessCodeRoutes");
+const accessCodeRoutes = require("./src/routes/accessCodeRoutes.js");
 
 dotenv.config();
 
@@ -12,7 +12,6 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN;
-console.log(process.env.CLIENT_ORIGIN);
 
 app.use(
   cors({
